@@ -42,6 +42,12 @@ defmodule Reg1Web.Router do
     resources "/tasks", TaskController    
   end
 
+  scope "/", Reg1Web do
+    pipe_through [:browser, :protected]
+
+    resources "/parrots", ParrotController    
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", Reg1Web do
   #   pipe_through :api

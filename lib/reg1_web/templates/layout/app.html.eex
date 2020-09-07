@@ -19,7 +19,7 @@
             </li>
 
             <li>
-                 <%= link "Выйти", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
+                 <%= link "Bыйти", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
             </li>
             <% else %>
             <li>

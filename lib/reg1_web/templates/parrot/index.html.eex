@@ -1,0 +1,30 @@
+<h1>Listing Parrots</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Send parrots</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for parrot <- @parrots do %>
+    <tr>
+      <td><%= parrot.title %></td>
+      <td><%= parrot.description %></td>
+      <td><%= parrot.send_parrots %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.parrot_path(@conn, :show, parrot) %></span>
+        <span><%= link "Edit", to: Routes.parrot_path(@conn, :edit, parrot) %></span>
+        <span><%= link "Delete", to: Routes.parrot_path(@conn, :delete, parrot), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Parrot", to: Routes.parrot_path(@conn, :new) %></span>

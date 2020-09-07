@@ -1,5 +1,8 @@
 defmodule Reg1Web.Router do
   use Reg1Web, :router
+  use Pow.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+    extensions: [PowResetPassword, PowEmailConfirmation]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,10 +16,30 @@ defmodule Reg1Web.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+
+  scope "/" do
+    pipe_through :browser
+
+    pow_routes()
+    pow_extension_routes()
+  end
+
+
   scope "/", Reg1Web do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/", Reg1Web do
+    pipe_through [:browser, :protected]
+
+    resources "/tasks", TaskController    
   end
 
   # Other scopes may use custom stacks.

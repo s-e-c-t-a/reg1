@@ -60,6 +60,17 @@ defmodule Reg1Web do
     end
   end
 
+  def mailer_view do
+    quote do
+      use Phoenix.View, root: "lib/reg1_web/templates",
+                        namespace: Reg1Web
+
+      use Phoenix.HTML
+    end
+  end
+
+
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """

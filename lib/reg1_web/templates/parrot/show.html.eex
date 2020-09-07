@@ -1,0 +1,23 @@
+<h1>Show Parrot</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @parrot.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @parrot.description %>
+  </li>
+
+  <li>
+    <strong>Send parrots:</strong>
+    <%= @parrot.send_parrots %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.parrot_path(@conn, :edit, @parrot) %></span>
+<span><%= link "Back", to: Routes.parrot_path(@conn, :index) %></span>

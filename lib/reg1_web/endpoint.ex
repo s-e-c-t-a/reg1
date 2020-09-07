@@ -42,5 +42,6 @@ defmodule Reg1Web.Endpoint do
     key: "_reg1_key",
     signing_salt: "TC1qSYbv"
 
+  plug Pow.Plug.Session, otp_app: :reg1
   plug Reg1Web.Router
 end

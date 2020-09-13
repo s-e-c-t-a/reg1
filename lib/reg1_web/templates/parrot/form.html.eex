@@ -18,6 +18,6 @@
   <%= error_tag f, :send_parrots %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save_Отправить" %>
   </div>
 <% end %>

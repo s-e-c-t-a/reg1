@@ -3,9 +3,9 @@
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Send parrots</th>
+      <th>Title_Кому</th>
+      <th>Description_за что</th>
+      <th>Send parrots_Количество</th>
 
       <th></th>
     </tr>

@@ -5,6 +5,15 @@ defmodule Reg1Web.ParrotController do
   alias Reg1.Secta.Parrot
 
   def index(conn, _params) do
+          #user_id = "conn.assigns" |> Map.get(id, nil)
+      ## user_id = conn.assigns
+      xz = conn.assigns.current_user
+      xzz = xz.id
+
+           IO.puts "___________________"
+           IO.inspect(xzz)
+           IO.puts "___________________"
+
     parrots = Secta.list_parrots()
     render(conn, "index.html", parrots: parrots)
   end
@@ -15,7 +24,14 @@ defmodule Reg1Web.ParrotController do
   end
 
   def create(conn, %{"parrot" => parrot_params}) do
-    case Secta.create_parrot(parrot_params) do
+    xz = conn.assigns.current_user
+      xzz = xz.id
+      parrot_params2 = Map.put_new(parrot_params, "user_id", xzz)
+       
+IO.puts "________а теперь паррто парамс___________"
+IO.inspect(parrot_params2)
+IO.puts "___________________"
+    case Secta.create_parrot(parrot_params2) do
       {:ok, parrot} ->
         conn
         |> put_flash(:info, "Parrot created successfully.")

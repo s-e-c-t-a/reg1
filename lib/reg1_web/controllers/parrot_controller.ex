@@ -14,7 +14,7 @@ defmodule Reg1Web.ParrotController do
            IO.inspect(xzz)
            IO.puts "___________________"
 
-    parrots = Secta.list_parrots()
+    parrots = Secta.list_parrots(xzz)
     render(conn, "index.html", parrots: parrots)
   end
 

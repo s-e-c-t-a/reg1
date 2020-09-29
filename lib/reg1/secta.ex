@@ -17,8 +17,13 @@ defmodule Reg1.Secta do
       [%Parrot{}, ...]
 
   """
-  def list_parrots do
-    Repo.all(Parrot)
+  def list_parrots(xzz) do
+
+    query = 
+    from p in Parrot,
+    where: p.user_id == ^xzz
+    Repo.all(query)
+    
   end
 
   @doc """
@@ -53,6 +58,9 @@ defmodule Reg1.Secta do
     %Parrot{}
     |> Parrot.changeset(attrs)
     |> Repo.insert()
+    
+
+
   end
 
   @doc """

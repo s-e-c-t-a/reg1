@@ -7,6 +7,7 @@ defmodule Reg1.Secta do
   alias Reg1.Repo
 
   alias Reg1.Secta.Parrot
+  alias Reg1.Users.User
 
   @doc """
   Returns the list of parrots.
@@ -17,13 +18,40 @@ defmodule Reg1.Secta do
       [%Parrot{}, ...]
 
   """
+  #def list_parrots(xzz) do
+  #  query = 
+  #  from p in Parrot,
+  #  where: p.user_id == ^xzz
+  #  Repo.all(query)
+  #end
+
   def list_parrots(xzz) do
+
+   pre_query =
+     from t in Parrot,
+     #sring_from_title = String.to_integer(t.title)
+     where: t.title == ^xzz
+     
+    
+    query = 
+    from p in pre_query,
+    where: p.user_id == ^xzz
+
+    Repo.all(query)
+    
+  end
+
+
+  def check_user_recipient(find_title2) do
 
     query = 
     from p in Parrot,
-    where: p.user_id == ^xzz
-    Repo.all(query)
-    
+    where: p.user_id == ^find_title2
+    pre_user = Repo.exists?(query)
+       IO.puts "________query___________"
+       IO.inspect(pre_user)
+       IO.puts "________________________"
+       pre_user
   end
 
   @doc """

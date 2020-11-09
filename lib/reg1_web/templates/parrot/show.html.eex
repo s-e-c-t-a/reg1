@@ -3,17 +3,17 @@
 <ul>
 
   <li>
-    <strong>Title:</strong>
+    <strong>Title (Кому закинул):</strong>
     <%= @parrot.title %>
   </li>
 
   <li>
-    <strong>Description:</strong>
+    <strong>Description (за что закинул):</strong>
     <%= @parrot.description %>
   </li>
 
   <li>
-    <strong>Send parrots:</strong>
+    <strong>Send parrots (сколько закинул):</strong>
     <%= @parrot.send_parrots %>
   </li>
 

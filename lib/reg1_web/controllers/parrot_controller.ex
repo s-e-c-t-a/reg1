@@ -10,7 +10,8 @@ defmodule Reg1Web.ParrotController do
            IO.puts "___________________"
            IO.inspect(xzz)
            IO.puts "___________________"
-      parrots = Secta.list_parrots(xzz)
+      xzz_string = Integer.to_string(xzz)
+      parrots = Secta.list_parrots(xzz, xzz_string)
       render(conn, "index.html", parrots: parrots)
   end
 
@@ -28,20 +29,21 @@ defmodule Reg1Web.ParrotController do
       find_title2 = String.to_integer(find_title)
       presence_user = Secta.check_user_recipient(find_title2)
           case !!presence_user do
-             true ->
+             false ->
                   case Secta.create_parrot(parrot_params2) do
                   {:ok, parrot} ->
                   conn
-                  |> put_flash(:info, "Parrot created successfully.")
+                  |> put_flash(:info, "Попугаи улетели на юг!.")
                   |> redirect(to: Routes.parrot_path(conn, :show, parrot))
                   {:error, %Ecto.Changeset{} = changeset} ->
                   render(conn, "new.html", changeset: changeset)
                   end
              false ->
-             parrots = Secta.list_parrots(xzz)
-             conn
-             |> put_flash(:info, "Нет такого сектанта")
-             |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+               xzz_string = Integer.to_string(xzz)
+               parrots = Secta.list_parrots(xzz, xzz_string)
+                   conn
+                   |> put_flash(:info, "Нет такого сектанта")
+                   |> redirect(to: Routes.parrot_path(conn, :index, parrots))
           end 
   end
 

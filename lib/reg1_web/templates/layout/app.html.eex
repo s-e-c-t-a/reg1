@@ -15,7 +15,7 @@
             <%= if Pow.Plug.current_user(@conn) do %> 
 
             <li>
-                 <%= @current_user.email %><%= assigns[:walletj] %><%= @current_user.email %>
+                 <%= @current_user.email %><%= assigns[:wallet] %><%= @current_user.email %>
             </li>
 
             <li>

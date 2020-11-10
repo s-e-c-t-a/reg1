@@ -1,4 +1,4 @@
-<h1>New Parrot</h1>
+<h1>New Parrot Отправить попугаев</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.parrot_path(@conn, :create)) %>
 

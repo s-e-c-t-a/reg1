@@ -81,7 +81,7 @@ defmodule Reg1.Secta do
       # беру инфу о id пользователя записи в Score wallet:  Reg1.Repo.get_by(Reg1.Secta.Parrot, user_id: 1)
       who_score_id = Reg1.Repo.get_by(Reg1.Users.Score, user_id: attrs["user_id"])
       case who_score_id do
-        nil -> attrs2 = %{user_id: attrs["user_id"], wallet: 0}
+         nil -> attrs2 = %{user_id: attrs["user_id"], wallet: 0}
         
                 %Score{}
                |> Score.changeset(attrs2)
@@ -96,7 +96,7 @@ defmodule Reg1.Secta do
       case whom_score_id do
           nil -> attrs3 = %{user_id: attrs["title"], wallet: 0}
 
-         %Score{}
+               %Score{}
                |> Score.changeset(attrs3)
                |> Repo.insert()
 

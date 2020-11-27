@@ -12,11 +12,19 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <%= if Pow.Plug.current_user(@conn) do %> 
-
+            
             <li>
-                 <%= @current_user.email %><%= assigns[:wallet] %><%= @current_user.email %>
+                <%= if Pow.Plug.current_user(@conn) do %>
+
+                <%= title(@conn) %>
+              
+
+                   <% end %>
+            
             </li>
+
+
+            <%= if Pow.Plug.current_user(@conn) do %> 
 
             <li>
                  <%= @current_user.email %>

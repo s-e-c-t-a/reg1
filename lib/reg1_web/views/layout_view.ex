@@ -12,13 +12,27 @@ defmodule Reg1Web.LayoutView do
       query =
       from s in Score,
       where: s.user_id == ^find_id 
-      [pre_wallet] = Repo.all(query)
+      pre_wallet = Repo.all(query)
+         IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"
+         IO.inspect(pre_wallet)
+         IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"   
 
-      find_wallet = pre_wallet.wallet
-  IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"
-    IO.inspect(find_wallet)
-    IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"
-     find_wallet
+        case length(pre_wallet) do
+          0 -> "Тут живут попугаи"
+
+          _ -> pre_wallet2 = hd(pre_wallet)
+           pre_wallet2.wallet
+
+            
+
+        end
+      #[pre_wallet] = 
+
+      
+    #IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"
+    #IO.inspect(find_wallet)
+    # IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"
+    #find_wallet
  
   end
 

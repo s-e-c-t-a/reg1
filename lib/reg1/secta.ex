@@ -78,31 +78,36 @@ defmodule Reg1.Secta do
   # создание записи, расчета и последующей записи в Score :wallet
   def create_parrot(attrs \\ %{}) do
           
-      # беру инфу о id пользователя записи в Score wallet:  Reg1.Repo.get_by(Reg1.Secta.Parrot, user_id: 1)
+      # беру инфу про id пользователя записи в Score wallet:  Reg1.Repo.get_by(Reg1.Secta.Parrot, user_id: 1)
+        # если у него нет записи, то создаю и пишу в wallet 0
       who_score_id = Reg1.Repo.get_by(Reg1.Users.Score, user_id: attrs["user_id"])
-      case who_score_id do
-         nil -> attrs2 = %{user_id: attrs["user_id"], wallet: 0}
-        
-                %Score{}
-               |> Score.changeset(attrs2)
-               |> Repo.insert()
+           case who_score_id do
+              nil -> attrs2 = %{user_id: attrs["user_id"], wallet: 0}
+             
+                     %Score{}
+                    |> Score.changeset(attrs2)
+                    |> Repo.insert()
+     
+               _ -> who_score_id   
+           end
 
-          _ -> who_score_id   
-      end
 
-
-      # беру инфу о id пользователя записи в Score wallet:  Reg1.Repo.get_by(Reg1.Secta.Parrot, user_id: 1)
+      # беру инфу про id пользователя записи в Score wallet:  Reg1.Repo.get_by(Reg1.Secta.Parrot, user_id: 1)
+        # если у него нет записи, то создаю и пишу в wallet 0
       whom_score_id = Reg1.Repo.get_by(Reg1.Users.Score, user_id: String.to_integer(attrs["title"]))
-      case whom_score_id do
-          nil -> attrs3 = %{user_id: attrs["title"], wallet: 0}
-
-               %Score{}
-               |> Score.changeset(attrs3)
-               |> Repo.insert()
-
-          _ -> whom_score_id 
+           case whom_score_id do
+               nil -> attrs3 = %{user_id: attrs["title"], wallet: 0}
+     
+                    %Score{}
+                    |> Score.changeset(attrs3)
+                    |> Repo.insert()
+     
+               _ -> whom_score_id 
       end
 
+      # для успешной транзакции обновляю значения про id пользователей в новой переменной
+      who_score_id2 = Reg1.Repo.get_by(Reg1.Users.Score, user_id: attrs["user_id"])
+      whom_score_id2 = Reg1.Repo.get_by(Reg1.Users.Score, user_id: String.to_integer(attrs["title"]))
 
 
 
@@ -154,8 +159,8 @@ defmodule Reg1.Secta do
            
 
             Repo.transaction(fn ->
-  Repo.update!(change(who_score_id, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
-  Repo.update!(change(whom_score_id, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
+  Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
+  Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
 
 # MyRepo.transaction(fn ->
 #  MyRepo.update!(change(alice, balance: alice.balance - 10))

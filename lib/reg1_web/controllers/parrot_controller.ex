@@ -29,8 +29,10 @@ defmodule Reg1Web.ParrotController do
       # "user_id" => 1
       # }
 
+
       #_____ПРОВЕРКА ОТРИЦАТЕЛЬНОГО ЗНАЧЕНИЯ
       check_send_parrots = String.to_integer(parrot_params["send_parrots"])
+
           # IO.puts "_________ПРОВЕРКА ОТРИЦАТЕЛЬНОГО ЗНАЧЕНИЯ__________"
           # IO.inspect(check_send_parrots)
           # IO.puts "________<<<=====>>>___________"
@@ -38,6 +40,15 @@ defmodule Reg1Web.ParrotController do
 
       xz = conn.assigns.current_user
       xzz = xz.id
+
+      limit_parrots = Reg1Web.LayoutView.title(conn) - check_send_parrots
+
+      case limit_parrots < -50 do
+        
+        false -> 
+          
+      
+
 
       case check_send_parrots >= 1 do
         
@@ -73,6 +84,21 @@ defmodule Reg1Web.ParrotController do
                 conn
                 |> put_flash(:info, "НЕ КРЕДИТУЕМ!")
                 |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+                end
+
+               
+
+          true -> xzz_string = Integer.to_string(xzz)
+                parrots = Secta.list_parrots(xzz, xzz_string)
+                conn
+                |> put_flash(:info, "Лимит исчерпан")
+                |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+
+
+          
+
+
+
       end
   end
 

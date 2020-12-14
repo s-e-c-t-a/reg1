@@ -204,7 +204,7 @@ end)
   # }
 
  # цифра из кошелька того кто отсылает
-  defp get_who_score(attrs) do
+  def get_who_score(attrs) do
       who_send = attrs["user_id"]
    #   whom_send = String.to_integer(attrs["title"])
      
@@ -225,7 +225,7 @@ end)
 
 
   # цифра из кошелька того кому отсылают
-  defp get_whom_score(attrs) do
+  def get_whom_score(attrs) do
    #   who_send = attrs["user_id"]
       whom_send = String.to_integer(attrs["title"])
      

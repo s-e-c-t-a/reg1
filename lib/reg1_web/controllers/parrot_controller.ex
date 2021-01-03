@@ -10,7 +10,8 @@ defmodule Reg1Web.ParrotController do
            IO.puts "___________________"
            IO.inspect(xzz)
            IO.puts "___________________"
-      parrots = Secta.list_parrots(xzz)
+      xzz_string = Integer.to_string(xzz)
+      parrots = Secta.list_parrots(xzz, xzz_string)
       render(conn, "index.html", parrots: parrots)
   end
 
@@ -21,28 +22,84 @@ defmodule Reg1Web.ParrotController do
 
 
   def create(conn, %{"parrot" => parrot_params}) do
+      # %{
+      # "description" => "ljljljljljlj",
+      # "send_parrots" => "7",
+      # "title" => "2",
+      # "user_id" => 1
+      # }
+
+
+      #_____ПРОВЕРКА ОТРИЦАТЕЛЬНОГО ЗНАЧЕНИЯ
+      check_send_parrots = String.to_integer(parrot_params["send_parrots"])
+
+          # IO.puts "_________ПРОВЕРКА ОТРИЦАТЕЛЬНОГО ЗНАЧЕНИЯ__________"
+          # IO.inspect(check_send_parrots)
+          # IO.puts "________<<<=====>>>___________"
+
+
       xz = conn.assigns.current_user
       xzz = xz.id
-      parrot_params2 = Map.put_new(parrot_params, "user_id", xzz)
-      find_title = Map.get(parrot_params2, to_string("title"))
-      find_title2 = String.to_integer(find_title)
-      presence_user = Secta.check_user_recipient(find_title2)
-          case !!presence_user do
-             true ->
-                  case Secta.create_parrot(parrot_params2) do
-                  {:ok, parrot} ->
-                  conn
-                  |> put_flash(:info, "Parrot created successfully.")
-                  |> redirect(to: Routes.parrot_path(conn, :show, parrot))
-                  {:error, %Ecto.Changeset{} = changeset} ->
-                  render(conn, "new.html", changeset: changeset)
-                  end
-             false ->
-             parrots = Secta.list_parrots(xzz)
-             conn
-             |> put_flash(:info, "Нет такого сектанта")
-             |> redirect(to: Routes.parrot_path(conn, :index, parrots))
-          end 
+
+      limit_parrots = Reg1Web.LayoutView.title(conn) - check_send_parrots
+
+      case limit_parrots < -50 do
+        
+        false -> 
+          
+      
+
+
+      case check_send_parrots >= 1 do
+        
+           true -> parrot_params2 = Map.put_new(parrot_params, "user_id", xzz)
+                   find_title = Map.get(parrot_params2, to_string("title"))
+                   find_title2 = String.to_integer(find_title)
+                   presence_user = Secta.check_user_recipient(find_title2)
+             
+                   # !! тру или фолс,  true - если есть такой получатель в бд
+                   case !!presence_user do
+                       true ->
+                           case Secta.create_parrot(parrot_params2) do
+                               {:ok, parrot} ->
+                                    conn
+                                    |> put_flash(:info, "Попугаи улетели на юг!.")
+                                    |> redirect(to: Routes.parrot_path(conn, :show, parrot))
+                               
+                               {:error, %Ecto.Changeset{} = changeset} ->
+                                    render(conn, "new.html", changeset: changeset)
+                           end
+                       # false - значит нет получателя, и следовательно ничего не произойдет и укажет об этом
+                       false ->
+                           # Есть проблема, если номер юзера указан с пробелом или как то нелепо, то будет ошибка
+                           xzz_string = Integer.to_string(xzz)
+                           parrots = Secta.list_parrots(xzz, xzz_string)
+                           conn
+                           |> put_flash(:info, "Нет такого сектанта")
+                           |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+                   end 
+           false -> 
+                xzz_string = Integer.to_string(xzz)
+                parrots = Secta.list_parrots(xzz, xzz_string)
+                conn
+                |> put_flash(:info, "НЕ КРЕДИТУЕМ!")
+                |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+                end
+
+               
+
+          true -> xzz_string = Integer.to_string(xzz)
+                parrots = Secta.list_parrots(xzz, xzz_string)
+                conn
+                |> put_flash(:info, "Лимит исчерпан")
+                |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+
+
+          
+
+
+
+      end
   end
 
 

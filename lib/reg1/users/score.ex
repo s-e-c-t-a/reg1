@@ -12,7 +12,7 @@ defmodule Reg1.Users.Score do
   @doc false
   def changeset(score, attrs) do
     score
-    |> cast(attrs, [:wallet])
-    |> validate_required([:wallet])
+    |> cast(attrs, [:wallet, :user_id])
+    |> validate_required([:wallet, :user_id])
   end
 end

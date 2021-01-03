@@ -5,19 +5,19 @@
     </div>
   <% end %>
 
-  <%= label f, :title %>
+  <%= label f, :title_кому_отсылается%>
   <%= text_input f, :title %>
   <%= error_tag f, :title %>
 
-  <%= label f, :description %>
+  <%= label f, :description_За_что_отправляется %>
   <%= textarea f, :description %>
   <%= error_tag f, :description %>
 
-  <%= label f, :send_parrots %>
+  <%= label f, :send_parrots_сколько_отсылается %>
   <%= number_input f, :send_parrots %>
   <%= error_tag f, :send_parrots %>
 
   <div>
-    <%= submit "Save_Отправить" %>
+    <%= submit "Save_Отправить попугаев" %>
   </div>
 <% end %>

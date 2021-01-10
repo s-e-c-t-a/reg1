@@ -16,6 +16,11 @@ config :reg1, Reg1Web.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+# config/prod.exs
+config :reg1, Reg1.Pow.Mailer,
+  adapter: Bamboo.MandrillAdapter, # Specify your preferred adapter
+  api_key: "my_api_key" # Specify adapter-specific configuration
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

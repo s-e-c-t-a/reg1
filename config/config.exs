@@ -29,9 +29,20 @@ config :reg1, :pow,
   user: Reg1.Users.User,
   repo: Reg1.Repo,
   web_module: Reg1Web,
+    web_mailer_module: Reg1Web,
   extensions: [PowResetPassword, PowEmailConfirmation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
-  mailer_backend: Reg1Web.PowMailer
+  mailer_backend: Reg1.Mailer
+
+
+# config/config.exs __Bamboo  наверно надо убрать
+config :reg1, Reg1.Mailer,
+  adapter: Bamboo.LocalAdapter,
+   # optional
+  open_email_in_browser_url: "https://localhost:4000/sent_emails"
+  ## adapter: Bamboo.MandrillAdapter,
+  ## api_key: "my_api_key"
+
 
 
 

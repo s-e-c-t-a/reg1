@@ -25,6 +25,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# https://hexdocs.pm/bamboo/Bamboo.LocalAdapter.html
+# In config/config.exs, or config/dev.exs, etc.
+  config :reg1, Reg1.Mailer,
+  adapter: Bamboo.LocalAdapter,
+  open_email_in_browser_url: "http://localhost:4000/sent_emails" # optional
+
 config :reg1, :pow,
   user: Reg1.Users.User,
   repo: Reg1.Repo,
@@ -32,14 +38,14 @@ config :reg1, :pow,
     web_mailer_module: Reg1Web,
   extensions: [PowResetPassword, PowEmailConfirmation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
-  mailer_backend: Reg1.Mailer
+  mailer_backend: Reg1Web.PowMailer
 
 
-# config/config.exs __Bamboo  наверно надо убрать
-config :reg1, Reg1.Mailer,
-  adapter: Bamboo.LocalAdapter,
-   # optional
-  open_email_in_browser_url: "https://localhost:4000/sent_emails"
+  # config/config.exs __Bamboo  наверно надо убрать
+  # config :reg1, Reg1.Mailer,
+  # adapter: Bamboo.LocalAdapter,
+  # optional
+  # open_email_in_browser_url: "https://localhost:4000/sent_emails"
   ## adapter: Bamboo.MandrillAdapter,
   ## api_key: "my_api_key"
 

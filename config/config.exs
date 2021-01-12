@@ -27,7 +27,7 @@ config :phoenix, :json_library, Jason
 
 # https://hexdocs.pm/bamboo/Bamboo.LocalAdapter.html
 # In config/config.exs, or config/dev.exs, etc.
-  config :reg1, Reg1.Mailer,
+  config :reg1, Reg1Web.Pow.Mailer,
   adapter: Bamboo.LocalAdapter,
   open_email_in_browser_url: "http://localhost:4000/sent_emails" # optional
 
@@ -38,7 +38,8 @@ config :reg1, :pow,
     web_mailer_module: Reg1Web,
   extensions: [PowResetPassword, PowEmailConfirmation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
-  mailer_backend: Reg1Web.PowMailer
+  mailer_backend: Reg1Web.Pow.Mailer
+
 
 
   # config/config.exs __Bamboo  наверно надо убрать

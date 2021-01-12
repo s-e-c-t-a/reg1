@@ -17,8 +17,8 @@ config :reg1, Reg1Web.Endpoint,
 config :logger, level: :info
 
 # config/prod.exs
-config :reg1, Reg1.Pow.Mailer,
-  adapter: Bamboo.MandrillAdapter, # Specify your preferred adapter
+config :reg1, Reg1.Mailer,
+  adapter: Bamboo.LocalAdapter, # Specify your preferred adapter
   api_key: "my_api_key" # Specify adapter-specific configuration
 
 # ## SSL Support

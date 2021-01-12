@@ -1,7 +1,7 @@
 
 ##https://github.com/joelparkerhenderson/demo_elixir_phoenix_pow_bamboo#add-pow-extensions-for-email
 
-defmodule Reg1Web.PowMailer do
+defmodule Reg1Web.Pow.Mailer do
   require Logger
   use Pow.Phoenix.Mailer
   use Bamboo.Mailer, otp_app: :reg1

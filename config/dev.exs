@@ -68,9 +68,9 @@ config :reg1, Reg1Web.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
-config :reg1, Reg1.Mailer,
-  adapter: Bamboo.LocalAdapter
- # open_email_in_browser_url: "http://localhost:4000/sent_emails" # optional
+# config :reg1, Reg1.Mailer,
+#  adapter: Bamboo.LocalAdapter
+#  open_email_in_browser_url: "http://localhost:4000/sent_emails" # optional
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
@@ -78,3 +78,8 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# config/dev.exs
+config :reg1, Reg1.Mailer,
+  adapter: Bamboo.LocalAdapter
+# open_email_in_browser_url: "http://localhost:4000/sent_emails" # optional

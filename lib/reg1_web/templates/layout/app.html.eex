@@ -16,7 +16,7 @@
             <li>
                 <%= if Pow.Plug.current_user(@conn) do %>
 
-                <%= title(@conn) %>
+                <%= title(@conn) %> Ты № <%= your_number(@current_user) %>
                 
                 <% end %>
             

@@ -158,14 +158,17 @@ defmodule Reg1.Secta do
            # записываю в таблицу score значения
            
 
+
+
+                   
          Repo.transaction(fn ->
-score_of_who = get_who_score(attrs)
-Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
+                               score_of_who = get_who_score(attrs)
+                               Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
 
 
-score_of_whom = get_whom_score(attrs)
-Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
-end)
+                               score_of_whom = get_whom_score(attrs)
+                               Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
+         end)
 
 
 

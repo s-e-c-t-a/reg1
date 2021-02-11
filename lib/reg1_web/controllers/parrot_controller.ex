@@ -96,15 +96,15 @@ defmodule Reg1Web.ParrotController do
                                           
 
                                           # проверка не отправляешь ли сам себе 
-                                          case recipient_user == xzz do
-                                                true ->  xzz_string = Integer.to_string(xzz)
-                                                        parrots = Secta.list_parrots(xzz, xzz_string)
-                                                   conn
-                                                   |> put_flash(:info, "Ты че сам себе отправляешь?")
-                                                   |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+                                         # case recipient_user == xzz do
+                                          #      true ->  xzz_string = Integer.to_string(xzz)
+                                          #              parrots = Secta.list_parrots(xzz, xzz_string)
+                                          #         conn
+                                          #         |> put_flash(:info, "Ты че сам себе отправляешь?")
+                                          #         |> redirect(to: Routes.parrot_path(conn, :index, parrots))
                                             
 
-                                                false ->                                           
+                                          #      false ->                                           
                                                       #parrot_params2
                                                       case Secta.create_parrot(Map.put_new(parrot_params, "user_id", xzz)) do
                                                            {:ok, parrot} ->
@@ -117,7 +117,7 @@ defmodule Reg1Web.ParrotController do
                                                       end
 
 
-                                          end
+                                          #end
 
 
                                        

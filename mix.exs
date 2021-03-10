@@ -20,7 +20,7 @@ defmodule Reg1.MixProject do
   def application do
     [
       mod: {Reg1.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :bamboo]
     ]
   end
 
@@ -36,14 +36,17 @@ defmodule Reg1.MixProject do
       {:phoenix, "~> 1.4.10"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
-      {:ecto_sql, "~> 3.1"},
+      {:ecto_sql, "~> 3.4.1"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:pow, "~> 1.0"}
+      {:bamboo, "~> 1.6"},
+      {:bamboo_smtp, "~> 3.1.0"},
+      {:pow, "~> 1.0.21"}
+
     ]
   end
 

@@ -1,5 +1,6 @@
 defmodule Reg1Web.Router do
   use Reg1Web, :router
+  ## use Phoenix.Router
   use Pow.Phoenix.Router
   use Pow.Extension.Phoenix.Router,
     extensions: [PowResetPassword, PowEmailConfirmation]
@@ -21,6 +22,16 @@ defmodule Reg1Web.Router do
       error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
+
+
+       if Mix.env == :dev do
+    # If using Phoenix
+       forward "/sent_emails", Bamboo.SentEmailViewerPlug
+
+    #  If using Plug.Router, make sure to add the `to`
+    #  forward "/sent_emails", to: Bamboo.SentEmailViewerPlug
+       end
+ 
 
   scope "/" do
     pipe_through :browser

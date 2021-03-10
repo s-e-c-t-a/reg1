@@ -38,68 +38,117 @@ defmodule Reg1Web.ParrotController do
           # IO.puts "________<<<=====>>>___________"
 
 
+  
+      # xzz ''это текущий пользователь, хуй знает потому что как его было искать
       xz = conn.assigns.current_user
       xzz = xz.id
 
-      limit_parrots = Reg1Web.LayoutView.title(conn) - check_send_parrots
+        recipient_user = String.to_integer(parrot_params["title"])
+      #sender_user = parrot_params["user_id"]
 
+           IO.puts "_________проверка сначала номера получателя, затем отправителя __________"
+           IO.inspect(recipient_user)
+           IO.inspect(xzz)
+           IO.puts "___________________________________________________________"
+
+
+
+
+
+
+       check_string_or_number_of_display = is_binary(Reg1Web.LayoutView.title(conn))
+       
+       display_parrots =  case check_string_or_number_of_display do
+                               true -> 0
+                               false -> Reg1Web.LayoutView.title(conn)
+          #_ -> display_parrots = 0
+       # else display_parrots = Reg1Web.LayoutView.title(conn)
+                          end
+      
+
+      limit_parrots = display_parrots - check_send_parrots
+
+      # проверка лимита
       case limit_parrots < -50 do
         
         false -> 
-          
-      
+              
+              #проверка отрицательного значения
+              case check_send_parrots >= 1 do
+                  true -> # parrot_params2 = Map.put_new(parrot_params, "user_id", xzz)
+                          # find_title = Map.get(parrot_params2, to_string("title"))
+                          # find_title2 = String.to_integer(find_title)
+                          # presence_user = Secta.check_user_recipient(find_title2)
+                           
+                          presence_user = parrot_params
+                                         |> Map.put_new("user_id", xzz)
+                                         |> Map.get(to_string("title"))
+                                         |> String.to_integer()
+                                         |> Secta.check_user_recipient()
 
 
-      case check_send_parrots >= 1 do
-        
-           true -> parrot_params2 = Map.put_new(parrot_params, "user_id", xzz)
-                   find_title = Map.get(parrot_params2, to_string("title"))
-                   find_title2 = String.to_integer(find_title)
-                   presence_user = Secta.check_user_recipient(find_title2)
-             
-                   # !! тру или фолс,  true - если есть такой получатель в бд
-                   case !!presence_user do
-                       true ->
-                           case Secta.create_parrot(parrot_params2) do
-                               {:ok, parrot} ->
-                                    conn
-                                    |> put_flash(:info, "Попугаи улетели на юг!.")
-                                    |> redirect(to: Routes.parrot_path(conn, :show, parrot))
-                               
-                               {:error, %Ecto.Changeset{} = changeset} ->
-                                    render(conn, "new.html", changeset: changeset)
-                           end
-                       # false - значит нет получателя, и следовательно ничего не произойдет и укажет об этом
-                       false ->
-                           # Есть проблема, если номер юзера указан с пробелом или как то нелепо, то будет ошибка
-                           xzz_string = Integer.to_string(xzz)
-                           parrots = Secta.list_parrots(xzz, xzz_string)
-                           conn
-                           |> put_flash(:info, "Нет такого сектанта")
-                           |> redirect(to: Routes.parrot_path(conn, :index, parrots))
-                   end 
-           false -> 
-                xzz_string = Integer.to_string(xzz)
-                parrots = Secta.list_parrots(xzz, xzz_string)
-                conn
-                |> put_flash(:info, "НЕ КРЕДИТУЕМ!")
-                |> redirect(to: Routes.parrot_path(conn, :index, parrots))
-                end
+
+
+
+                                # !! тру или фолс,  true - если есть такой получатель в бд
+                                case !!presence_user do
+                                true -> 
+                                          
+
+                                          # проверка не отправляешь ли сам себе 
+                                         # case recipient_user == xzz do
+                                          #      true ->  xzz_string = Integer.to_string(xzz)
+                                          #              parrots = Secta.list_parrots(xzz, xzz_string)
+                                          #         conn
+                                          #         |> put_flash(:info, "Ты че сам себе отправляешь?")
+                                          #         |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+                                            
+
+                                          #      false ->                                           
+                                                      #parrot_params2
+                                                      case Secta.create_parrot(Map.put_new(parrot_params, "user_id", xzz)) do
+                                                           {:ok, parrot} ->
+                                                                        conn
+                                                                        |> put_flash(:info, "Попугаи улетели на юг!.")
+                                                                        |> redirect(to: Routes.parrot_path(conn, :show, parrot))
+                                           
+                                                            {:error, %Ecto.Changeset{} = changeset} ->
+                                                            render(conn, "new.html", changeset: changeset)
+                                                      end
+
+
+                                          #end
+
+
+                                       
+                                # false - значит нет получателя, и следовательно ничего не произойдет и укажет об этом
+                                false ->
+                                       # Есть проблема, если номер юзера указан с пробелом или как то нелепо, то будет ошибка
+                                       xzz_string = Integer.to_string(xzz)
+                                       parrots = Secta.list_parrots(xzz, xzz_string)
+                                       conn
+                                       |> put_flash(:info, "Нет такого сектанта")
+                                       |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+                                end 
+
+              #проверка отрицательного значения
+                  false -> 
+                          xzz_string = Integer.to_string(xzz)
+                          parrots = Secta.list_parrots(xzz, xzz_string)
+                          conn
+                          |> put_flash(:info, "НЕ КРЕДИТУЕМ!")
+                          |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+                          end
 
                
-
-          true -> xzz_string = Integer.to_string(xzz)
+        # проверка лимита 
+        true -> xzz_string = Integer.to_string(xzz)
                 parrots = Secta.list_parrots(xzz, xzz_string)
                 conn
                 |> put_flash(:info, "Лимит исчерпан")
                 |> redirect(to: Routes.parrot_path(conn, :index, parrots))
+                end
 
-
-          
-
-
-
-      end
   end
 
 

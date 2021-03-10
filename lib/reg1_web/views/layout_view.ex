@@ -17,29 +17,22 @@ defmodule Reg1Web.LayoutView do
          IO.inspect(pre_wallet)
          IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"   
 
-        case length(pre_wallet) do
-          0 -> "Тут живут попугаи"
-
-          _ -> pre_wallet2 = hd(pre_wallet)
-           pre_wallet2.wallet
-
-            
-
-        end
-      #[pre_wallet] = 
-
-      
-    #IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"
-    #IO.inspect(find_wallet)
-    # IO.puts "_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_"
-    #find_wallet
- 
+               case length(pre_wallet) do
+                    0 -> "Тут живут попугаи"
+       
+                    _ -> pre_wallet2 = hd(pre_wallet)
+                    pre_wallet2.wallet
+       
+               end
   end
 
-end
+   
+ def your_number(current_user) do
+      
+      itog = current_user.id
+      
+ end
 
-## <%= inspect ahz %>
-                   
-          ##         <%= for title_huitle <- ahz do %>
-          ##         <%= title_huitle.wallet %>
-          ##         <% end %> 
+
+
+end

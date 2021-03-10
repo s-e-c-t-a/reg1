@@ -158,9 +158,26 @@ defmodule Reg1.Secta do
            # записываю в таблицу score значения
            
 
-            Repo.transaction(fn ->
-  Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
-  Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
+
+
+                   
+         Repo.transaction(fn ->
+                               score_of_who = get_who_score(attrs)
+                               Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
+
+
+                               score_of_whom = get_whom_score(attrs)
+                               Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
+         end)
+
+
+
+    # ЭТО ТОЖЕ РАБОЧАЯ ВЕРСИЯ, НО НАДО ЗАПРЕТИТЬ ОТПРАВЛЯТЬ САМОМУ СЕБЕ
+ #            Repo.transaction(fn ->
+ # Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
+ # Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
+ # end)
+
 
 # MyRepo.transaction(fn ->
 #  MyRepo.update!(change(alice, balance: alice.balance - 10))
@@ -169,7 +186,7 @@ defmodule Reg1.Secta do
 
  # Repo.update!(change(wallet_who, wallet: wallet_who.wallet - String.to_integer(attrs["send_parrots"])))
  # Repo.update!(change(wallet_whom, wallet: wallet_whom.wallet + String.to_integer(attrs["send_parrots"])))
-end)
+
 
 # When passing a function of arity 1, it receives the repository itself
 # Score.transaction(fn repo -> 

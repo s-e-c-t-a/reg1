@@ -12,6 +12,8 @@
   </thead>
   <tbody>
 <%= for parrot <- @parrots do %>
+    
+
     <tr>
       <td><%= parrot.title %></td>
       <td><%= parrot.description %></td>
@@ -24,6 +26,8 @@
       </td>
     </tr>
 <% end %>
+
+
   </tbody>
 </table>
 

@@ -161,14 +161,76 @@ defmodule Reg1.Secta do
 
 
                    
+      #   Repo.transaction(fn ->
+      #                         score_of_who = get_who_score(attrs)
+      #                         Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
+#
+#
+      #                         score_of_whom = get_whom_score(attrs)
+      #                         Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
+      #   end)
+
+
+
+             
+       #  Repo.transaction(fn ->
+       #                     #  счет отпр-го = запрос из его Score 
+       #                        score_of_who = get_who_score(attrs)
+       #                     
+       #                        
+
+       #                    #   обнови в chagesete того кто отправляет, цифра из кошелека за минусом отправляемой суммы
+       #                        
+       #                        Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
+       #                         IO.puts "_________000000000000000000000000000000000000000000000000000000000000000000__________"
+       #                   
+       #                        score_of_whom = get_whom_score(attrs)
+       #                                                 
+
+       #                        Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
+       #                        IO.puts "_________8888888888888888888888888888888888888888888888888888888888888888888__________"
+
+       #  end)
+
+          value_to_score_plus = String.to_integer(attrs["send_parrots"])
+          value_to_score_minus = 0 - value_to_score_plus
+
          Repo.transaction(fn ->
-                               score_of_who = get_who_score(attrs)
-                               Repo.update!(change(who_score_id2, wallet: score_of_who.wallet - String.to_integer(attrs["send_parrots"])))
 
 
-                               score_of_whom = get_whom_score(attrs)
-                               Repo.update!(change(whom_score_id2, wallet: score_of_whom.wallet + String.to_integer(attrs["send_parrots"])))
-         end)
+                              # from(u in User, update: [inc: [accesses: 1]])
+
+                              query1 = from(s in Score, where: s.user_id == ^who_score_id2.user_id, 
+                                                         update: [inc: [wallet: ^value_to_score_minus]])
+                             
+
+                              query2 = from(s in Score, where: s.user_id == ^whom_score_id2.user_id, 
+                                                         update: [inc: [wallet: ^value_to_score_plus]])
+
+                              #query2 = from s in Score, 
+                              #update: [inc: [wallet: String.to_integer(attrs["send_parrots"])]], 
+                              #where: s.user_id == ^whom_score_id2
+                              
+                                   Repo.update_all(query1, [])
+                                   Repo.update_all(query2, [])
+        end)
+
+                       # query1 = from s in Score, 
+                       #       update: [dec: [wallet: String.to_integer(attrs["send_parrots"])]], 
+                       #       where: s.user_id == ^who_score_id2
+
+
+                       #       query2 = from s in Score, 
+                       #       update: [inc: [wallet: String.to_integer(attrs["send_parrots"])]], 
+                       #       where: s.user_id == ^whom_score_id2
+                       #       
+                       #            Repo.update_all(query1, [])
+                       #            Repo.update_all(query2, [])
+
+
+
+
+
 
 
 
@@ -261,11 +323,6 @@ defmodule Reg1.Secta do
                  check_repo2_list
           end
   end
-
-
-  #defp score_transaction(attrs) do
-  #  nil
-  #end 
 
 
   @doc """

@@ -24,7 +24,7 @@ defmodule Reg1.Secta do
 
   """
   # Входящие и исходящие
-    def list_parrots(xzz, xzz_string) do
+  def list_parrots(xzz, xzz_string) do
 
     pre_query =
     from p in Parrot,
@@ -32,6 +32,8 @@ defmodule Reg1.Secta do
     Repo.all(pre_query)
     
   end
+
+
 
 
   def check_user_recipient(find_title2) do

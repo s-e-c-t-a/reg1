@@ -8,7 +8,7 @@ defmodule Reg1Web.ParrotController do
       xz = conn.assigns.current_user
       xzz = xz.id
            IO.puts "___________________"
-           IO.inspect(xzz)
+           IO.inspect(xz.email)
            IO.puts "___________________"
       xzz_string = Integer.to_string(xzz)
       parrots = Secta.list_parrots(xzz, xzz_string)

@@ -15,7 +15,7 @@
     
 
     <tr>
-      <td><%= parrot.title %></td>
+      <td><%= title_mail(parrot.title) %></td>
       <td><%= parrot.description %></td>
       <td><%= parrot.send_parrots %></td>
 

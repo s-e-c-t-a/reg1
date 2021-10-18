@@ -15,6 +15,6 @@ defmodule Reg1.Secta.Parrot do
   def changeset(parrot, attrs) do
     parrot
     |> cast(attrs, [:title, :description, :send_parrots, :user_id])
-    |> validate_required([:title, :description, :send_parrots])
+    |> validate_required([:title, :send_parrots])
   end
 end

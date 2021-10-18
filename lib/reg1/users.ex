@@ -6,6 +6,7 @@ defmodule Reg1.Users do
   import Ecto.Query, warn: false
   alias Reg1.Repo
 
+ 
   alias Reg1.Users.Score
 
   @doc """
@@ -17,6 +18,34 @@ defmodule Reg1.Users do
       [%Score{}, ...]
 
   """
+  def find_mail(parrot_title) do
+
+   parrot_title2 = String.to_integer(parrot_title)
+
+    IO.puts "_________ищу что за значение передаю__________"
+          IO.inspect(parrot_title2)
+          IO.inspect(parrot_title)
+    IO.puts "______________хуй_____________________________________________"
+
+   # ff_email =
+   # from u in Reg1.Users.User,
+   # where: u.user_id == ^parrot_title2
+   # Repo.all(ff_email)
+
+
+    
+   # from(Users) |> select([:id, :name]) |> Repo.get!(parrot_title2)
+
+    f_email = Repo.get!(Reg1.Users.User, parrot_title2, prefix: "public" )
+    IO.puts "_________ищу что за значение передаю__________"
+          IO.inspect(f_email)
+          
+    IO.puts "______________хуй_____________________________________________"
+
+    f_email.email
+  end
+
+
   def list_scores do
     Repo.all(Score)
   end

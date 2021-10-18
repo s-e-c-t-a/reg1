@@ -25,7 +25,7 @@ defmodule Reg1.Users do
     IO.puts "_________ищу что за значение передаю__________"
           IO.inspect(parrot_title2)
           IO.inspect(parrot_title)
-    IO.puts "___________________________________________________________"
+    IO.puts "______________хуй_____________________________________________"
 
    # ff_email =
    # from u in Reg1.Users.User,
@@ -37,7 +37,12 @@ defmodule Reg1.Users do
    # from(Users) |> select([:id, :name]) |> Repo.get!(parrot_title2)
 
     f_email = Repo.get!(Reg1.Users.User, parrot_title2, prefix: "public" )
-    f_email.email  
+    IO.puts "_________ищу что за значение передаю__________"
+          IO.inspect(f_email)
+          
+    IO.puts "______________хуй_____________________________________________"
+
+    f_email.email
   end
 
 

@@ -5,8 +5,6 @@ defmodule Reg1Web.ParrotView do
     
      Reg1.Users.find_mail(parrot_title)
 
-
-
    end
 
 

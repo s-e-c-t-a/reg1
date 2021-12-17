@@ -1,6 +1,7 @@
 `<h1>Edit profile</h1>
 
-<%= form_for @changeset, @action, [as: :user], fn f -> %>
+
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>

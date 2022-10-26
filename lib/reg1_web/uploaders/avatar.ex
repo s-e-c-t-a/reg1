@@ -1,8 +1,5 @@
 defmodule Reg1.Avatar do
   use Arc.Definition
-  use Arc.Ecto.Definition
-
-  def __storage, do: Arc.Storage.Local # Add this
 
   # Include ecto support (requires package arc_ecto installed):
   # use Arc.Ecto.Definition
@@ -22,29 +19,20 @@ defmodule Reg1.Avatar do
   #   ~w(.jpg .jpeg .gif .png) |> Enum.member?(Path.extname(file.file_name))
   # end
 
-  def validate({file, _}) do
-    ~w(.jpg .jpeg .gif .png)
-    |> Enum.member?(
-      file.file_name
-      |> Path.extname()
-      |> String.downcase()
-    )
-  end
-
   # Define a thumbnail transformation:
-   def transform(:thumb, _) do
-     {:convert, "-strip -thumbnail 250x250^ -gravity center -extent 250x250 -format png", :png}
-   end
+  # def transform(:thumb, _) do
+  #   {:convert, "-strip -thumbnail 250x250^ -gravity center -extent 250x250 -format png", :png}
+  # end
 
   # Override the persisted filenames:
-   def filename(version, _) do
-     version
-   end
+  # def filename(version, _) do
+  #   version
+  # end
 
   # Override the storage directory:
-   def storage_dir(version, {file, scope}) do
-     "uploads/user/avatars/#{scope.id}"
-   end
+  # def storage_dir(version, {file, scope}) do
+  #   "uploads/user/avatars/#{scope.id}"
+  # end
 
   # Provide a default URL if there hasn't been a file uploaded
   # def default_url(version, scope) do

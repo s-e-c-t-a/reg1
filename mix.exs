@@ -45,6 +45,11 @@ defmodule Reg1.MixProject do
       {:arc_ecto, "~> 0.11.1"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:ex_aws, "~> 2.0"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, ">= 1.15.2"},
+      {:poison, "~> 3.1"},
+      {:sweet_xml, "~> 0.6"},
       {:bamboo, "~> 1.6"},
       {:bamboo_smtp, "~> 3.1.0"},
       {:pow, "~> 1.0.21"}

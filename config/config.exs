@@ -40,7 +40,8 @@ config :reg1, :pow,
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   mailer_backend: Reg1Web.Pow.Mailer
 
-
+config :arc,
+  storage: Arc.Storage.Local
 
   # config/config.exs __Bamboo  наверно надо убрать
   # config :reg1, Reg1.Mailer,
